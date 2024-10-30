@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/table";
 
 export interface TableRow {
-  flight_name: string;
+  flight_code: string;
   date: string;
-  states: string;
+  state: string;
   passenger_count: number;
 }
 
@@ -31,19 +31,19 @@ export function StatTable({ data }: { data: TableRow[] }) {
       <TableBody>
         {data.map((row) => (
           <TableRow key={crypto.randomUUID()}>
-            <TableCell className="text-left ">{row.flight_name}</TableCell>
+            <TableCell className="text-left ">{row.flight_code}</TableCell>
             <TableCell className="font-medium">{row.date}</TableCell>
-            <TableCell>{row.states}</TableCell>
+            <TableCell>{row.state}</TableCell>
             <TableCell className=" text-right">{row.passenger_count}</TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
+      {/* <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total</TableCell>
           <TableCell className="text-right">2,500.00</TableCell>
         </TableRow>
-      </TableFooter>
+      </TableFooter> */}
     </Table>
   );
 }

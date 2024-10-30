@@ -1,71 +1,127 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
-import { UserDatePicker } from "../passenger_count_by_destination/PickADate";
+import React, { useEffect, useState } from "react";
 import { StatTable } from "./StatTable";
 import { TableRow } from "./StatTable";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const data: TableRow[] = [
   {
-    flight_name: "Flight 101",
+    flight_code: "Flight 101",
     date: "2024-11-01",
-    states: "On Time",
+    state: "On Time",
     passenger_count: 150,
   },
   {
-    flight_name: "Flight 202",
+    flight_code: "Flight 202",
     date: "2024-11-02",
-    states: "Delayed",
+    state: "Delayed",
     passenger_count: 120,
   },
   {
-    flight_name: "Flight 303",
+    flight_code: "Flight 303",
     date: "2024-11-03",
-    states: "Cancelled",
+    state: "Cancelled",
     passenger_count: 0,
   },
   {
-    flight_name: "Flight 404",
+    flight_code: "Flight 404",
     date: "2024-11-04",
-    states: "On Time",
+    state: "On Time",
     passenger_count: 180,
   },
   {
-    flight_name: "Flight 505",
+    flight_code: "Flight 505",
     date: "2024-11-05",
-    states: "On Time",
+    state: "On Time",
     passenger_count: 160,
   },
 ];
 
+interface Destination {
+  label: string;
+  key: string;
+}
+
+const destinations = [
+  {
+    label: "Suvarnabhumi Airport",
+    key: "BKK",
+  },
+];
+
 export default function Page() {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const [departue, setDeparture] = React.useState<string>("");
+  const [destination, setDestination] = React.useState<string>("");
   const [tableData, setTableData] = useState<TableRow[]>(data);
 
+  const [destinationsList, setDestinationsList] =
+    React.useState<Destination[]>(destinations);
+
+  async function fetchDestination() {
+    try {
+      fetch("/api/airports");
+      const destinations = await fetch("/api/airports").then((res) =>
+        res.json()
+      );
+      setDestinationsList(destinations);
+    } catch (error) {
+      console.error("Error fetching destinations:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchDestination();
+  }, []);
+
   async function fetchData() {
-    console.log(startDate, endDate);
-
-    const res = await fetch(`/api/past_flight_data?origin=${origin}&destination=${destination}`);
-    const data = await res.json();
-
-    setTableData(data);
+    const str = `/api/past_flight_data?origin=${departue}&destination=${destination}`;
+    try {
+      if (!destination || !departue) {
+        return;
+      }
+      const response = await fetch(str).then((res) => res.json());
+      console.log(response);
+      setTableData(response);
+    } catch (error) {
+      console.error("Error fetching destinations:", error);
+    }
   }
   return (
     <div className=" w-full h-[90%] p-6 flex flex-col items-center gap-8">
       <form action={fetchData}>
         <div className="flex gap-6 mt-8">
-          <UserDatePicker
-            date={startDate}
-            setDate={setStartDate}
-            label="Starting Date"
-          />
-          <UserDatePicker
-            date={endDate}
-            setDate={setEndDate}
-            label="Ending Date"
-          />
+          <Select onValueChange={setDeparture}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Destination" />
+            </SelectTrigger>
+            <SelectContent>
+              {destinationsList.map((destination) => (
+                <SelectItem key={destination.key} value={destination.key}>
+                  {destination.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>{" "}
+          <Select onValueChange={setDestination}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Destination" />
+            </SelectTrigger>
+            <SelectContent>
+              {destinationsList.map((destination) => (
+                <SelectItem key={destination.key} value={destination.key}>
+                  {destination.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div>
           <Button className=" w-full mt-6" onClick={fetchData}>
