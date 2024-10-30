@@ -61,8 +61,12 @@ export default function Page() {
     if (flightID === "") {
       return;
     }
-    // fetch passenger data
-    setPassengerData(data);
+    console.log("fetching " + flightID)
+    const res = await fetch(`/api/analytics/passengers/age_distribution?flight_code=${flightID}`);
+    const data = await res.json();
+    if (res.ok) {
+      setPassengerData(data);
+    }
   }
 
   return (
@@ -85,7 +89,7 @@ export default function Page() {
             <CardTitle>Below 18</CardTitle>
             <CardDescription>Add description - Thivinu</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="max-h-[100px] overflow-scroll">
             <Accordion type="single" collapsible>
               {passengerData.under_18.length === 0 && (
                 <p>No passengers found</p>
