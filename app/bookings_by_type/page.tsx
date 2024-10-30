@@ -49,8 +49,26 @@ export default function Page() {
       );
       if (response) {
         const temp = await response.json();
-        // setAirports(temp);
         console.log(temp);
+
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i]?.user_category == "Guest") {
+            setBokingCount((val) => ({
+              ...val,
+              guest: temp[i]?.booking_count | 0,
+            }));
+          } else if (temp[i]?.user_category == "New User") {
+            setBokingCount((val) => ({
+              ...val,
+              new: temp[i]?.booking_count | 0,
+            }));
+          } else if (temp[i]?.user_category == "Frequent User") {
+            setBokingCount((val) => ({
+              ...val,
+              frequent: temp[i]?.booking_count | 0,
+            }));
+          }
+        }
       }
     } catch (error) {
       console.log(error);
