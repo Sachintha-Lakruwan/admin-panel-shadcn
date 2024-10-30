@@ -16,9 +16,10 @@ import {
 interface UserDatePickerProps {
   date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  label: string;
 }
 
-export function UserDatePicker({ date, setDate }: UserDatePickerProps) {
+export function UserDatePicker({ date, setDate, label }: UserDatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -30,7 +31,7 @@ export function UserDatePicker({ date, setDate }: UserDatePickerProps) {
           )}
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>{label}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
