@@ -4,18 +4,23 @@ import { NextRequest, NextResponse } from "next/server";
 import { executeQuery } from "@/app/api/database/database"; // Adjust the path as necessary
 
 export async function GET(request: NextRequest) {
-    const { searchParams } = new URL(request.url);
-    const origin = searchParams.get("origin");
-    const destination = searchParams.get("destination");
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = 10;
-    const offset = (page - 1) * limit;
+  const { searchParams } = new URL(request.url);
+  const origin = searchParams.get("origin");
+  const destination = searchParams.get("destination");
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const limit = 10;
+  const offset = (page - 1) * limit;
 
-    if (!origin || !destination || origin.length !== 3 || destination.length !== 3) {
-        return new Response("Invalid origin or destination", { status: 400 });
-    }
+  if (
+    !origin ||
+    !destination ||
+    origin.length !== 3 ||
+    destination.length !== 3
+  ) {
+    return new Response("Invalid origin or destination", { status: 400 });
+  }
 
-    const pastFlightsQuery = `
+  const pastFlightsQuery = `
         SELECT 
             s.flight_code,
             s.date,
@@ -35,16 +40,19 @@ export async function GET(request: NextRequest) {
         LIMIT ${limit} OFFSET ${offset};
     `;
 
-    try {
-        const pastFlights = await executeQuery(pastFlightsQuery, [origin, destination ]);
-        pastFlights.map((flight) => {
-            flight.date = flight.date.toLocaleDateString('en-CA').split("T")[0];
-        })
+  try {
+    const pastFlights = await executeQuery(pastFlightsQuery, [
+      origin,
+      destination,
+    ]);
+    pastFlights.map((flight) => {
+      flight.date = flight.date.toLocaleDateString("en-CA").split("T")[0];
+    });
 
-        console.log(pastFlights)
-        return NextResponse.json(pastFlights);
-    } catch (error) {
-        console.error("Error fetching past flights:", error);
-        return new NextResponse("Error executing query", { status: 500 });
-    }
+    console.log(pastFlights);
+    return NextResponse.json(pastFlights);
+  } catch (error) {
+    console.error("Error fetching past flights:", error);
+    return new NextResponse("Error executing query", { status: 500 });
+  }
 }

@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { convertDate } from "@/helpers/convertDate";
 
 interface Destination {
   label: string;
@@ -18,11 +19,10 @@ interface Destination {
 }
 
 const destinations = [
-  { label: "New York", key: "NY" },
-  { label: "New York2", key: "NY2" },
-  { label: "New York3", key: "NY3" },
-  { label: "New York4", key: "NY4" },
-  { label: "New York5", key: "NY5" },
+  {
+    label: "Suvarnabhumi Airport",
+    key: "BKK",
+  },
 ];
 
 export default function Page() {
@@ -31,20 +31,38 @@ export default function Page() {
   const [passengerCount, setPassengerCount] = React.useState<number>(0);
   const [destinationsList, setDestinationsList] =
     React.useState<Destination[]>(destinations);
-  const [destionation, setDestination] = React.useState<string>("");
+  const [destination, setDestination] = React.useState<string>("");
 
   async function fetchDestination() {
-    // TODO1: Fetch destinations from the server
-    setDestinationsList(destinations);
+    try {
+      fetch("/api/airports");
+      const destinations = await fetch("/api/airports").then((res) =>
+        res.json()
+      );
+      setDestinationsList(destinations);
+    } catch (error) {
+      console.error("Error fetching destinations:", error);
+    }
   }
 
   useEffect(() => {
     fetchDestination();
   }, []);
 
-  function handleSearch() {
-    // TODO2: Fetch passenger count from the server
-    console.log(startDate, endDate, passengerCount, destionation);
+  async function handleSearch() {
+    try {
+      if (!startDate || !endDate) {
+        return;
+      }
+      const destinations = await fetch(
+        `/api/analytics/passengers/destination_count?destination=${destination}&start_date=${convertDate(
+          startDate
+        )}&end_date=${convertDate(endDate)}`
+      ).then((res) => res.json());
+      setPassengerCount(parseInt(destinations));
+    } catch (error) {
+      console.error("Error fetching destinations:", error);
+    }
     setPassengerCount(100);
   }
 
