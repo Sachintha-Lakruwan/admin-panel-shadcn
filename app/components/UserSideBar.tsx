@@ -13,40 +13,56 @@ import { FiLogOut } from "react-icons/fi";
 import Image from "next/image";
 import img from "@/public/B Airways.png";
 import { useRouter } from "next/navigation";
+import { FaPerson } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdOutlineMergeType } from "react-icons/md";
+import { FaHistory } from "react-icons/fa";
+import { AiFillDollarCircle } from "react-icons/ai";
 
 export default function UserSideBar() {
   const router = useRouter();
   return (
     <Sidebar className=" w-1/4">
       <SidebarHeader>
-        <div className=" bg-zinc-900 rounded-xl w-16 aspect-square relative">
+        <div className=" bg-zinc-900 rounded-xl w-16 aspect-square relative scale-90">
           <Image src={img} fill sizes="100vw" alt="b-airways logo"></Image>
         </div>
       </SidebarHeader>
-      <SidebarContent className="  font-bold pt-5">
+      <SidebarContent className="pt-5">
         <SidebarGroup
-          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
           onClick={() => router.push("/view_passengers")}
         >
+          <FaPerson className=" text-lg" />
           View Passengers
         </SidebarGroup>
         <SidebarGroup
-          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
-          onClick={() => router.push("/as")}
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
+          onClick={() => router.push("/view_passengers")}
         >
+          <FaLocationDot className=" text-lg" />
           Passenger Count by Destination
         </SidebarGroup>
         <SidebarGroup
-          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
-          onClick={() => router.push("/as")}
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
+          onClick={() => router.push("/view_passengers")}
         >
+          <MdOutlineMergeType className=" text-lg" />
           Booking by Passenger Type
         </SidebarGroup>
         <SidebarGroup
-          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
-          onClick={() => router.push("/as")}
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
+          onClick={() => router.push("/view_passengers")}
         >
+          <FaHistory className=" text-lg" />
           Flight History and Passenger Data
+        </SidebarGroup>
+        <SidebarGroup
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
+          onClick={() => router.push("/view_passengers")}
+        >
+          <AiFillDollarCircle className=" text-lg" />
+          Total Revenue
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className=" flex w-full flex-row justify-between items-center">
