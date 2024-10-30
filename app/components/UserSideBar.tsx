@@ -52,14 +52,14 @@ export default function UserSideBar() {
         </SidebarGroup>
         <SidebarGroup
           className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
-          onClick={() => router.push("/bookings_by_type")}
+          onClick={() => router.push("/flight_history")}
         >
           <FaHistory className=" text-lg" />
           Flight History and Passenger Data
         </SidebarGroup>
         <SidebarGroup
           className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300 px-4 flex flex-row gap-4 items-center py-4"
-          onClick={() => router.push("/view_passengers")}
+          onClick={() => router.push("/total_revenue")}
         >
           <AiFillDollarCircle className=" text-lg" />
           Total Revenue
