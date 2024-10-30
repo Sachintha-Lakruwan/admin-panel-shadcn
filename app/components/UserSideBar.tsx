@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Sidebar,
@@ -9,13 +10,26 @@ import {
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FiLogOut } from "react-icons/fi";
+import Image from "next/image";
+import img from "@/public/B Airways.png";
+import { useRouter } from "next/navigation";
 
 export default function UserSideBar() {
+  const router = useRouter();
   return (
     <Sidebar className=" w-1/4">
-      <SidebarHeader>B-Airways</SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>View Passenger</SidebarGroup>
+      <SidebarHeader>
+        <div className=" bg-zinc-900 rounded-xl w-16 aspect-square relative">
+          <Image src={img} fill sizes="100vw" alt="b-airways logo"></Image>
+        </div>
+      </SidebarHeader>
+      <SidebarContent className="  font-bold pt-5">
+        <SidebarGroup
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
+          onClick={() => router.push("/as")}
+        >
+          View Passenger
+        </SidebarGroup>
         <SidebarGroup>Passenger Count by Destination</SidebarGroup>
         <SidebarGroup>Booking by Passenger Type</SidebarGroup>
         <SidebarGroup>Flight History and Passenger Data</SidebarGroup>
