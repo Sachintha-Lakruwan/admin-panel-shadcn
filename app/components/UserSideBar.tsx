@@ -26,13 +26,28 @@ export default function UserSideBar() {
       <SidebarContent className="  font-bold pt-5">
         <SidebarGroup
           className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
+          onClick={() => router.push("/view_passengers")}
+        >
+          View Passengers
+        </SidebarGroup>
+        <SidebarGroup
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
           onClick={() => router.push("/as")}
         >
-          View Passenger
+          Passenger Count by Destination
         </SidebarGroup>
-        <SidebarGroup>Passenger Count by Destination</SidebarGroup>
-        <SidebarGroup>Booking by Passenger Type</SidebarGroup>
-        <SidebarGroup>Flight History and Passenger Data</SidebarGroup>
+        <SidebarGroup
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
+          onClick={() => router.push("/as")}
+        >
+          Booking by Passenger Type
+        </SidebarGroup>
+        <SidebarGroup
+          className=" cursor-pointer transition-all delay-75 hover:bg-zinc-200 duration-300"
+          onClick={() => router.push("/as")}
+        >
+          Flight History and Passenger Data
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className=" flex w-full flex-row justify-between items-center">
         <div className=" flex gap-5">
