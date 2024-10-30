@@ -1,7 +1,7 @@
 // src/app/api/analytics/flights/past_flight_data/route.ts
 //TESTED AND CONFIRMED
 import { NextRequest, NextResponse } from "next/server";
-import { executeQuery } from "@database/database"; // Adjust the path as necessary
+import { executeQuery } from "@/app/api/database/database"; // Adjust the path as necessary
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);

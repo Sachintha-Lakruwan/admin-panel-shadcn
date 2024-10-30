@@ -6,51 +6,51 @@ import { RevenueCardProps } from "./RevenueCard";
 
 const data: RevenueCardProps[] = [
   {
-    model: "Boeing 747",
+    name: "Boeing 747",
     revenue: 100000,
   },
   {
-    model: "Boeing 737",
+    name: "Boeing 737",
     revenue: 200000,
   },
   {
-    model: "Airbus A380",
+    name: "Airbus A380",
     revenue: 300000,
   },
   {
-    model: "Airbus A320",
+    name: "Airbus A320",
     revenue: 400000,
   },
   {
-    model: "Boeing 747",
+    name: "Boeing 747",
     revenue: 100000,
   },
   {
-    model: "Boeing 737",
+    name: "Boeing 737",
     revenue: 200000,
   },
   {
-    model: "Airbus A380",
+    name: "Airbus A380",
     revenue: 300000,
   },
   {
-    model: "Airbus A320",
+    name: "Airbus A320",
     revenue: 400000,
   },
   {
-    model: "Boeing 747",
+    name: "Boeing 747",
     revenue: 100000,
   },
   {
-    model: "Boeing 737",
+    name: "Boeing 737",
     revenue: 200000,
   },
   {
-    model: "Airbus A380",
+    name: "Airbus A380",
     revenue: 300000,
   },
   {
-    model: "Airbus A320",
+    name: "Airbus A320",
     revenue: 400000,
   },
 ];
@@ -58,7 +58,10 @@ const data: RevenueCardProps[] = [
 export default function Page() {
   const [revenueDetals, setRevenueDetails] = useState<RevenueCardProps[]>(data);
 
+
   async function fetchRevenueDetails() {
+    const res = await fetch(`/api/revenue`);
+    const data = await res.json();
     setRevenueDetails(data);
   }
 
@@ -71,7 +74,7 @@ export default function Page() {
       {revenueDetals.map((i) => (
         <RevenueCard
           key={crypto.randomUUID()}
-          model={i.model}
+          name={i.name}
           revenue={i.revenue}
         />
       ))}

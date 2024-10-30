@@ -12,12 +12,12 @@ export async function POST(request : NextRequest) {
 
     const secretKey = process.env.JWT_SECRET || "your_jwt_secret"
 
-    console.log(token)
+    // console.log(token)
 
     try {
-        const decode = jwt.verify(token, secretKey) as { userId: number, role: number } // Type assertion
+        jwt.verify(token, secretKey) as { userId: number, role: number } // Type assertion
 
-        console.log(decode)
+        // console.log(decode)
 
         return NextResponse.json({ message: 'Valid token' }, { status: 200 });
     } catch (err) {

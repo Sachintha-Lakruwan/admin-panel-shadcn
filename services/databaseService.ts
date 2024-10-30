@@ -1,22 +1,21 @@
 // src/services/databaseService.ts
-import { executeQuery } from "@database/database";
+import { executeQuery } from "@/app/api/database/database";
 
 /**
  * Get total revenue by a specific aircraft type.
  * @param airplaneModel The aircraft model ID.
  */
-export async function getRevenueByAircraftType(airplaneModel: string) {
+export async function getRevenueByAircraftType() {
     const query = `
-        SELECT SUM(booking.price) AS total_revenue
+        SELECT SUM(booking.price) AS revenue, airplane_model.name
         FROM booking
         JOIN schedule ON booking.schedule_id = schedule.id
         JOIN airplane ON schedule.airplane_number = airplane.tail_number
         JOIN airplane_model ON airplane.model_id = airplane_model.id
-        WHERE airplane_model.name = ?;
+		GROUP BY airplane_model.name;
     `;
-    const res = await executeQuery(query, [airplaneModel]);
-    console.log(res[0]);
-    return res[0]
+    const res = await executeQuery(query, []);
+    return res
 }
 
 /**
