@@ -14,6 +14,7 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { Separator } from "@/components/ui/separator";
 import BookingsNumber from "./BookingsNumber";
+import { convertDate } from "@/helpers/convertDate";
 
 interface bookingCounts {
   guest: number;
@@ -36,9 +37,28 @@ export default function Page() {
     useState<bookingCounts>(bookingCountsTemp);
 
   async function fetchData() {
-    console.log(startDate, endDate);
-    setBokingCount(bookingCountsTemp);
+    try {
+      // setLoading(true);
+      if (!startDate || !endDate) {
+        return;
+      }
+      const response = await fetch(
+        `/api/analytics/bookings_type_count?start_date=${convertDate(
+          startDate
+        )}&end_date=${convertDate(endDate)}`
+      );
+      if (response) {
+        const temp = await response.json();
+        // setAirports(temp);
+        console.log(temp);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setLoading(false);
+    }
   }
+
   return (
     <div className=" w-full h-[90%] p-6 flex flex-col items-center gap-8">
       <form action={fetchData}>
