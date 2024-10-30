@@ -15,9 +15,11 @@ export async function POST(request : NextRequest) {
     // console.log(token)
 
     try {
-        jwt.verify(token, secretKey) as { userId: number, role: number } // Type assertion
+        const data = jwt.verify(token, secretKey) as { userId: number, role: string } // Type assertion
 
-        // console.log(decode)
+        if (data.role != "admin") {
+            return NextResponse.json({ message: 'Invalid token' }, { status: 400 }); // Bad Request
+        }
 
         return NextResponse.json({ message: 'Valid token' }, { status: 200 });
     } catch (err) {

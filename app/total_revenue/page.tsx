@@ -4,20 +4,6 @@ import React, { useEffect, useState } from "react";
 import RevenueCard from "./RevenueCard";
 import { RevenueCardProps } from "./RevenueCard";
 
-const data: RevenueCardProps[] = [
-  {
-    name: "Boeing 737",
-    revenue: 0,
-  },
-  {
-    name: "Airbus A380",
-    revenue: 0,
-  },
-  {
-    name : "Boeing 757",
-    revenue : 0
-  }
-];
 
 export default function Page() {
   const [revenueDetals, setRevenueDetails] = useState<
