@@ -20,14 +20,14 @@ interface bookingCounts {
   guest: number;
   new: number;
   frequent: number;
-  gold: number;
+  // gold: number;
 }
 
 const bookingCountsTemp: bookingCounts = {
-  guest: 10,
-  new: 102,
-  frequent: 102,
-  gold: 102,
+  guest: 0,
+  new: 0,
+  frequent: 0,
+  // gold: 102,
 };
 
 export default function Page() {
@@ -108,11 +108,11 @@ export default function Page() {
                   <Label className=" mb-4">Frequent</Label>
                   <BookingsNumber number={bookingCount.frequent} />
                 </div>
-                <Separator orientation="vertical" />
+                {/* <Separator orientation="vertical" />
                 <div className=" flex items-center flex-col">
                   <Label className=" mb-4">Gold</Label>
                   <BookingsNumber number={bookingCount.gold} />
-                </div>
+                </div> */}
               </div>
             </div>
           </CardContent>
