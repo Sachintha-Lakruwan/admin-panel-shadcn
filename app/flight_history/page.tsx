@@ -12,39 +12,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const data: TableRow[] = [
-  {
-    flight_code: "Flight 101",
-    date: "2024-11-01",
-    state: "On Time",
-    passenger_count: 150,
-  },
-  {
-    flight_code: "Flight 202",
-    date: "2024-11-02",
-    state: "Delayed",
-    passenger_count: 120,
-  },
-  {
-    flight_code: "Flight 303",
-    date: "2024-11-03",
-    state: "Cancelled",
-    passenger_count: 0,
-  },
-  {
-    flight_code: "Flight 404",
-    date: "2024-11-04",
-    state: "On Time",
-    passenger_count: 180,
-  },
-  {
-    flight_code: "Flight 505",
-    date: "2024-11-05",
-    state: "On Time",
-    passenger_count: 160,
-  },
-];
-
 interface Destination {
   label: string;
   key: string;
@@ -60,7 +27,7 @@ const destinations = [
 export default function Page() {
   const [departue, setDeparture] = React.useState<string>("");
   const [destination, setDestination] = React.useState<string>("");
-  const [tableData, setTableData] = useState<TableRow[]>(data);
+  const [tableData, setTableData] = useState<TableRow[] | null>(null);
 
   const [destinationsList, setDestinationsList] =
     React.useState<Destination[]>(destinations);
@@ -130,7 +97,8 @@ export default function Page() {
         </div>
       </form>
       <div className=" w-full px-20">
-        <StatTable data={tableData} />
+        {tableData && tableData.length > 0 && <StatTable data={tableData} />}
+        {!tableData || (tableData.length === 0 && <div>No data found</div>)}
       </div>
     </div>
   );
