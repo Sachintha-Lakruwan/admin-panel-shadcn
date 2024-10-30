@@ -1,3 +1,5 @@
+import MenuBar from "./components/MenuBar";
+
 export default function Home() {
-  return <div>Admin Panel</div>;
+  return <div></div>;
 }
