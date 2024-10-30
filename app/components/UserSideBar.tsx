@@ -7,8 +7,8 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { Label } from "@/components/ui/label";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Label } from "@/components/ui/label";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FiLogOut } from "react-icons/fi";
 import Image from "next/image";
 import img from "@/public/B Airways.png";
@@ -67,7 +67,7 @@ export default function UserSideBar() {
       </SidebarContent>
       <SidebarFooter className=" flex w-full flex-row justify-between items-center">
         <div className=" flex gap-5">
-          <Avatar>
+          {/* <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
@@ -78,7 +78,7 @@ export default function UserSideBar() {
             <Label htmlFor="email" className=" text-xs italic">
               Executive Board
             </Label>
-          </div>
+          </div> */}
         </div>
         <FiLogOut className=" text-xl" />
       </SidebarFooter>
