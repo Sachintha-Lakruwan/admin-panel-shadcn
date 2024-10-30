@@ -46,6 +46,10 @@ export default function Page() {
 
   async function fetchData() {
     console.log(startDate, endDate);
+
+    const res = await fetch(`/api/past_flight_data?origin=${origin}&destination=${destination}`);
+    const data = await res.json();
+
     setTableData(data);
   }
   return (

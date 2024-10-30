@@ -54,16 +54,15 @@ export default function Page() {
       if (!startDate || !endDate) {
         return;
       }
-      const destinations = await fetch(
-        `/api/analytics/passengers/destination_count?destination=${destination}&start_date=${convertDate(
-          startDate
-        )}&end_date=${convertDate(endDate)}`
-      ).then((res) => res.json());
-      setPassengerCount(parseInt(destinations));
+      const str = `/api/analytics/passengers/destination_count?destination=${destination}&start_date=${convertDate(
+        startDate
+      )}&end_date=${convertDate(endDate)}`;
+      const destinations = await fetch(str).then((res) => res.json());
+      console.log(destinations);
+      setPassengerCount(parseInt(destinations[0].passenger_count) | 0);
     } catch (error) {
       console.error("Error fetching destinations:", error);
     }
-    setPassengerCount(100);
   }
 
   return (

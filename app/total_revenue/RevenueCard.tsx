@@ -9,7 +9,7 @@ export interface RevenueCardProps {
 
 export default function RevenueCard({ name, revenue }: RevenueCardProps) {
   return (
-    <Card className=" aspect-square flex flex-col items-center justify-center gap-3">
+    <Card className=" aspect-square flex flex-col items-center justify-center gap-3 p-4 text-center">
       <Label className=" text-3xl font-bold">{name}</Label>
       <Label className=" text-xl font-extralight">{revenue} $</Label>
     </Card>
