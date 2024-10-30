@@ -1,19 +1,19 @@
 // src/app/api/analytics/passengers/destination_count/route.ts
 //TESTED AND CONFIRMED
 import { NextRequest, NextResponse } from "next/server";
-import { executeQuery } from "@database/database";
+import { executeQuery } from "@/app/api/database/database";
 
 export async function GET(request: NextRequest) {
-    const { searchParams } = new URL(request.url);
-    const destination = searchParams.get("destination");
-    const startDate = searchParams.get("start_date");
-    const endDate = searchParams.get("end_date");
+  const { searchParams } = new URL(request.url);
+  const destination = searchParams.get("destination");
+  const startDate = searchParams.get("start_date");
+  const endDate = searchParams.get("end_date");
 
-    if (!destination || !startDate || !endDate) {
-        return new Response("Invalid form data", { status: 400 });
-    }
+  if (!destination || !startDate || !endDate) {
+    return new Response("Invalid form data", { status: 400 });
+  }
 
-    const passengerCountQuery = `
+  const passengerCountQuery = `
         SELECT COUNT(*) AS passenger_count
         FROM booking b
         JOIN schedule s ON b.schedule_id = s.id
@@ -22,7 +22,11 @@ export async function GET(request: NextRequest) {
         WHERE a.code = ? AND s.date BETWEEN ? AND ?;
     `;
 
-    const passengerCount = await executeQuery(passengerCountQuery, [destination, startDate, endDate]);
+  const passengerCount = await executeQuery(passengerCountQuery, [
+    destination,
+    startDate,
+    endDate,
+  ]);
 
-    return NextResponse.json(passengerCount);
+  return NextResponse.json(passengerCount);
 }
