@@ -15,13 +15,33 @@ import { Label } from "@radix-ui/react-label";
 import { Separator } from "@/components/ui/separator";
 import BookingsNumber from "./BookingsNumber";
 
+interface bookingCounts {
+  guest: number;
+  new: number;
+  frequent: number;
+  gold: number;
+}
+
+const bookingCountsTemp: bookingCounts = {
+  guest: 10,
+  new: 102,
+  frequent: 102,
+  gold: 102,
+};
+
 export default function Page() {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  function handleSearch() {}
+  const [bookingCount, setBokingCount] =
+    useState<bookingCounts>(bookingCountsTemp);
+
+  async function fetchData() {
+    console.log(startDate, endDate);
+    setBokingCount(bookingCountsTemp);
+  }
   return (
     <div className=" w-full h-[90%] p-6 flex flex-col items-center gap-8">
-      <form action={handleSearch}>
+      <form action={fetchData}>
         <div className="flex gap-6 mt-8">
           <UserDatePicker
             date={startDate}
@@ -35,7 +55,7 @@ export default function Page() {
           />
         </div>
         <div>
-          <Button className=" w-full mt-6" onClick={handleSearch}>
+          <Button className=" w-full mt-6" onClick={fetchData}>
             Search
           </Button>
         </div>
@@ -47,7 +67,7 @@ export default function Page() {
             <CardDescription>Card Description</CardDescription>
           </CardHeader>
           <CardContent className=" flex flex-col items-center justify-center">
-            <BookingsNumber number={10} />
+            <BookingsNumber number={bookingCount.guest} />
           </CardContent>
         </Card>
         <Card>
@@ -61,17 +81,17 @@ export default function Page() {
               <div className="flex items-center space-x-4 text-sm h-40">
                 <div className=" flex items-center flex-col">
                   <Label className=" mb-4">New</Label>
-                  <BookingsNumber number={102} />
+                  <BookingsNumber number={bookingCount.new} />
                 </div>
                 <Separator orientation="vertical" />
                 <div className=" flex items-center flex-col">
                   <Label className=" mb-4">Frequent</Label>
-                  <BookingsNumber number={102} />
+                  <BookingsNumber number={bookingCount.frequent} />
                 </div>
                 <Separator orientation="vertical" />
                 <div className=" flex items-center flex-col">
                   <Label className=" mb-4">Gold</Label>
-                  <BookingsNumber number={102} />
+                  <BookingsNumber number={bookingCount.gold} />
                 </div>
               </div>
             </div>
