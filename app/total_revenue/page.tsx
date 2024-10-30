@@ -6,53 +6,17 @@ import { RevenueCardProps } from "./RevenueCard";
 
 const data: RevenueCardProps[] = [
   {
-    name: "Boeing 747",
-    revenue: 100000,
-  },
-  {
     name: "Boeing 737",
-    revenue: 200000,
+    revenue: 0,
   },
   {
     name: "Airbus A380",
-    revenue: 300000,
+    revenue: 0,
   },
   {
-    name: "Airbus A320",
-    revenue: 400000,
-  },
-  {
-    name: "Boeing 747",
-    revenue: 100000,
-  },
-  {
-    name: "Boeing 737",
-    revenue: 200000,
-  },
-  {
-    name: "Airbus A380",
-    revenue: 300000,
-  },
-  {
-    name: "Airbus A320",
-    revenue: 400000,
-  },
-  {
-    name: "Boeing 747",
-    revenue: 100000,
-  },
-  {
-    name: "Boeing 737",
-    revenue: 200000,
-  },
-  {
-    name: "Airbus A380",
-    revenue: 300000,
-  },
-  {
-    name: "Airbus A320",
-    revenue: 400000,
-  },
+    name : "Boeing 757",
+    revenue : 0
+  }
 ];
 
 export default function Page() {
